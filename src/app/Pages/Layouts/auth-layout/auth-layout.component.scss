@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: rgb(226, 210, 181);
+}
+.auth-layout-container {
+  height: 70%;
+  background: rgb(255, 255, 255);
+  background: radial-gradient(circle, #dd3603 30%, rgb(47, 42, 42) 70%);
+}
+.main-title {
+  position: absolute;
+  top: 7%;
+  right: 20%;
+  //background-color: wheat;
+  //border-radius: 50%;
+  font-size: large;
+  font-weight: bolder;
+  //padding: 5%;
+  text-align: center;
+}

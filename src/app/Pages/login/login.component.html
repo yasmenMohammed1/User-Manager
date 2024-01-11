@@ -1,0 +1,30 @@
+<form class="login-form" [formGroup]="loginForm" (submit)="submit()">
+  <mat-form-field class="form-field">
+    <mat-label> E-mail </mat-label>
+    <input
+      placeholder="pat@example.com"
+      matInput
+      formControlName="email"
+      required
+    />
+    <mat-error *ngIf="email?.touched && email?.invalid">
+      <span *ngIf="email?.errors?.['required']">This field is mandatory.</span>
+      <span *ngIf="email?.errors?.['email']">This field is invalid.</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-field">
+    <mat-label> Password </mat-label>
+    <input matInput formControlName="password" type="password" />
+    <mat-error *ngIf="password?.touched && password?.invalid">
+      <span *ngIf="password?.errors?.['required']"
+        >This field is mandatory.</span
+      >
+    </mat-error>
+  </mat-form-field>
+  <app-custom-btn
+    type="submit"
+    title="Log-in"
+    [loading]="loading"
+  ></app-custom-btn>
+  don't have an account ? <a [routerLink]="'/register'">Register here</a>
+</form>

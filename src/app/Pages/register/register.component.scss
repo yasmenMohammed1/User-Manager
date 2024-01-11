@@ -1,0 +1,25 @@
+.form-field {
+  display: block;
+}
+form {
+  text-align: center;
+}
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: red !important;
+  }
+
+  .mdc-snackbar__label {
+    color: white !important;
+  }
+}
+
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: var(--color-primary) !important;
+  }
+
+  .mdc-snackbar__label {
+    color: white !important;
+  }
+}

@@ -1,0 +1,9 @@
+<button
+  ngClass="{loading}"
+  mat-stroked-button
+  color="primary"
+  [class.spinner]="loading"
+  [disabled]="loading"
+>
+  {{ title }}
+</button>

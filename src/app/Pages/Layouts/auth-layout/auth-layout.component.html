@@ -1,0 +1,24 @@
+<div class="container">
+  <mat-card class="auth-layout-container" fxFlex="70%">
+    <mat-card-content
+      fxLayout="row"
+      fxLayoutAlign.lt-lg="center center"
+      fxLayoutAlign.gt-md="space-between center"
+      fxLayoutGap="2%"
+      fxFlex="100%"
+      class="auth-layout-content"
+    >
+      <div fxFlex.lt-lg="80%" fxFlex.gt-md="40%">
+        <router-outlet></router-outlet>
+      </div>
+
+      <img
+        fxFlex="45%"
+        fxHide.lt-md="true"
+        mat-card-image
+        src="/assets/people.png"
+        alt="people"
+      />
+    </mat-card-content>
+  </mat-card>
+</div>
