@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ProfileUser } from '../Models/user';
 import { Observable, from, of, switchMap } from 'rxjs';
@@ -9,6 +10,13 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import {
+  PhoneAuthCredential,
+  User,
+  UserCredential,
+  updateProfile,
+} from 'firebase/auth';
+import { updatePhoneNumber } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +24,7 @@ import { AuthService } from './auth.service';
 export class UserService {
   authService = inject(AuthService);
   firestore = inject(Firestore);
+  http = inject(HttpClient);
   get currentUserProfile$(): Observable<ProfileUser | null> {
     return this.authService.currentUser$.pipe(
       switchMap((user) => {
@@ -31,6 +40,20 @@ export class UserService {
 
   addUser(user: ProfileUser): Observable<void> {
     const ref = doc(this.firestore, 'users', user.uid);
+
+    this.http
+      .put(`http://localhost:10000/api/user/${user.uid}`, {
+        displayName: user.displayName,
+        phone: user.phone,
+      })
+      .subscribe({
+        next: () => {},
+        error: () => {
+          alert('something wrong ');
+        },
+      });
+
+    // updatePhoneNumber(this.authService.auth.currentUser as any,PhoneAuthCredential);
     return from(setDoc(ref, user));
   }
 

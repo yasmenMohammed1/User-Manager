@@ -11,8 +11,8 @@
 }
 .auth-layout-container {
   height: 70%;
-  background: rgb(255, 255, 255);
-  background: radial-gradient(circle, #dd3603 30%, rgb(47, 42, 42) 70%);
+  background-image: url("/assets/background.jpg");
+  background-size: cover;
 }
 .main-title {
   position: absolute;

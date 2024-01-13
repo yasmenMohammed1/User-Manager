@@ -1,4 +1,3 @@
-import { User } from '@angular/fire/auth';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,8 +15,7 @@ import { CustomBtnComponent } from '../../Components/custom-btn/custom-btn.compo
 import { AuthService } from '../../services/auth.service';
 import { switchMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-import { updateProfile } from 'firebase/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -81,9 +79,7 @@ export class RegisterComponent implements OnInit {
         next: () => {
           this.loading = false;
           this.openSnackBar('successfully created', 'snackbar-success');
-          updateProfile(this.auth.auth.currentUser as User, {
-            displayName: name,
-          });
+
           this.router.navigate(['/login']);
         },
         error: (error: any) => {

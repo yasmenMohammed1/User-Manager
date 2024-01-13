@@ -1,0 +1,96 @@
+<h1 mat-dialog-title>{{ dialogData.uid ? "Edit User" : "Create User" }}</h1>
+<div mat-dialog-content>
+  <div class="example-container">
+    <div class="form-container">
+      <form
+        class="register-form"
+        [formGroup]="createOrUpdateForm"
+        (submit)="submit()"
+      >
+        <mat-form-field class="form-field">
+          <mat-label> Name </mat-label>
+          <input
+            placeholder="please enter your name"
+            matInput
+            formControlName="name"
+            required
+          />
+          <mat-error *ngIf="name?.touched && name?.invalid">
+            <span *ngIf="name?.errors?.['required']"
+              >This field is mandatory.</span
+            >
+            <span *ngIf="name?.errors?.['minlength']"
+              >Please Enter a Valid Name (min 7 letters).</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <mat-label> E-mail </mat-label>
+          <input
+            placeholder="pat@example.com"
+            matInput
+            formControlName="email"
+            required
+          />
+          <mat-error *ngIf="email?.touched && email?.invalid">
+            <span *ngIf="email?.errors?.['required']"
+              >This field is mandatory.</span
+            >
+            <span *ngIf="email?.errors?.['pattern']"
+              >Please Enter a Valid Email.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label> Phone </mat-label>
+          <input
+            placeholder="pat@example.com"
+            matInput
+            formControlName="phone"
+            required
+          />
+          <mat-error *ngIf="phone?.touched && email?.invalid">
+            <span *ngIf="phone?.errors?.['required']"
+              >This field is mandatory.</span
+            >
+
+            <span *ngIf="phone?.errors?.['pattern']"
+              >Please Enter a Valid Phone Number.</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <mat-label> Password </mat-label>
+          <input matInput formControlName="password" type="password" />
+          <mat-error *ngIf="password?.touched && password?.invalid">
+            <span *ngIf="password?.errors?.['required']"
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutGap="2%"
+          mat-dialog-actions
+        >
+          <app-custom-btn
+            color="primary"
+            title="Register"
+            [loading]="loading"
+          ></app-custom-btn>
+          <app-custom-btn
+            color="basic"
+            mat-button
+            title="close"
+            [mat-dialog-close]="true"
+            cdkFocusInitial
+          >
+          </app-custom-btn>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -8,14 +8,23 @@ import {
   canActivate,
 } from '@angular/fire/auth-guard';
 import { UserLayoutComponent } from './Pages/Layouts/user-layout/user-layout.component';
+import { UsersComponent } from './Pages/users/users.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['/dashboard']);
 export const routes: Routes = [
   {
-    path: 'dashboard',
-    title: '',
+    path: '',
+    title: 'Dashboard',
     component: UserLayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/dashboard',
+        pathMatch: 'full',
+      },
+      { path: 'dashboard', component: UsersComponent },
+    ],
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {

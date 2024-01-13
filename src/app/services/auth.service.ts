@@ -3,6 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import {
   Auth,
   GoogleAuthProvider,
+  User,
+  UserCredential,
   authState,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -15,18 +17,19 @@ import { Observable, defer, from } from 'rxjs';
 export class AuthService {
   auth = inject(Auth);
   http = inject(HttpClient);
-
   currentUser$ = authState(this.auth);
 
   Login(email: string, password: string): Observable<any> {
     const res = () => signInWithEmailAndPassword(this.auth, email, password);
     return defer(res);
   }
-  Signup(email: string, password: string): Observable<any> {
+
+  Signup(email: string, password: string): Observable<UserCredential> {
     const res = () =>
       createUserWithEmailAndPassword(this.auth, email, password);
     return defer(res);
   }
+
   LoginGoogle(): Observable<any> {
     const provider = new GoogleAuthProvider();
     const res = () => signInWithPopup(this.auth, provider);

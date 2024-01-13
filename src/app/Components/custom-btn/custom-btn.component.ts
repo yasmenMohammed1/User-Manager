@@ -7,11 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './custom-btn.component.html',
   styleUrl: './custom-btn.component.scss',
 })
-export class CustomBtnComponent implements OnChanges {
-  ngOnChanges(changes: SimpleChanges): void {}
+export class CustomBtnComponent {
   @Input() loading = false;
   @Input() title = '';
-  save(): void {
-    this.loading = true;
-  }
+  @Input() color = 'basic';
 }

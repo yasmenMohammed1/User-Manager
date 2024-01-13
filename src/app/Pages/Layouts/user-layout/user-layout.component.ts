@@ -29,18 +29,20 @@ import { CustomBtnComponent } from '../../../Components/custom-btn/custom-btn.co
   styleUrl: './user-layout.component.scss',
 })
 export class UserLayoutComponent {
-  loading: boolean = false;
   auth = inject(AuthService);
   router = inject(Router);
   snackBar = inject(MatSnackBar);
 
+  loading: boolean = false;
   title = 'material-responsive-sidenav';
+
+  name = this.auth.auth.currentUser?.displayName;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isMobile = true;
   isCollapsed = true;
-  name = this.auth.auth.currentUser?.displayName;
+
   constructor(private observer: BreakpointObserver) {}
 
   toggleMenu() {
@@ -63,8 +65,10 @@ export class UserLayoutComponent {
     });
   }
   signOut() {
+    this.loading = true;
     this.auth.logout().subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     });
+    this.loading = false;
   }
 }

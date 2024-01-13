@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         );
         this.router.navigateByUrl('/dashboard');
       },
-      (error) => {
+      (error: any) => {
         this.loading = false;
         this.openSnackBar(error?.message, 'snackbar-error');
       }

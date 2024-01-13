@@ -8,6 +8,8 @@ h2 {
 
 mat-toolbar {
   position: fixed;
+  display: flex;
+  justify-content: space-between;
   top: 0;
   z-index: 2;
 }

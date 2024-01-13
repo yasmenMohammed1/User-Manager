@@ -1,10 +1,13 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <h1>Responsive Material Sidenavigation</h1>
-
+<mat-toolbar
+  color="primary"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <!-- nav links-->
+  <span> People</span>
+  {{ name }}
   <app-custom-btn
+    color="basic"
     title="Sign Out"
     (click)="signOut()"
     [loading]="loading"

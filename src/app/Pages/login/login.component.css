@@ -18,4 +18,9 @@
 }
 .snackbar-success .mdc-snackbar__label {
   color: white !important;
+}
+
+a {
+  color: orangered;
+  text-decoration: none;
 }/*# sourceMappingURL=login.component.css.map */
