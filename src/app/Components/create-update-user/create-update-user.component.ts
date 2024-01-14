@@ -5,7 +5,6 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { UsersService } from '../../services/users.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   FormBuilder,
   FormGroup,
@@ -39,7 +38,6 @@ import { Router } from '@angular/router';
 })
 export class CreateUpdateUserComponent implements OnInit {
   users = inject(UsersService);
-  snackBar = inject(MatSnackBar);
   formBuilder = inject(FormBuilder);
   dialogData = inject(MAT_DIALOG_DATA);
   user = inject(UserService);
@@ -48,9 +46,10 @@ export class CreateUpdateUserComponent implements OnInit {
 
   showAlert = false;
   close = false;
+  loading = false;
+
   createOrUpdateForm!: FormGroup;
 
-  loading = false;
   constructor(public dialogRef: MatDialogRef<CreateUpdateUserComponent>) {}
   ngOnInit() {
     this.createOrUpdateForm = this.formBuilder.group({
@@ -103,12 +102,9 @@ export class CreateUpdateUserComponent implements OnInit {
     if (!this.dialogData?.user) {
       this.users.createUser({ ...this.createOrUpdateForm.value }).subscribe({
         next: () => {
-          this.openSnackBar('successfully created', 'snackbar-success');
           this.dialogRef.close();
         },
-        error: (error: any) => {
-          this.openSnackBar(error?.message, 'snackbar-error');
-        },
+        error: (error: any) => {},
       });
       this.loading = false;
     } else {
@@ -119,21 +115,11 @@ export class CreateUpdateUserComponent implements OnInit {
         })
         .subscribe({
           next: () => {
-            this.openSnackBar('successfully updated', 'snackbar-success');
             this.dialogRef.close();
           },
-          error: (error: any) => {
-            this.openSnackBar(error?.message, 'snackbar-error');
-          },
+          error: (error: any) => {},
         });
       this.loading = false;
     }
-  }
-
-  openSnackBar(data: string, className: string) {
-    this.snackBar.open(data, 'Close', {
-      duration: 2000,
-      panelClass: className,
-    });
   }
 }

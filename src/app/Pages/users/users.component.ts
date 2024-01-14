@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateUpdateUserComponent } from '../../Components/create-update-user/create-update-user.component';
 import { ProfileUser } from '../../Models/user';
 import { getAuth } from '@angular/fire/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -20,7 +21,10 @@ import { getAuth } from '@angular/fire/auth';
 export class UsersComponent implements OnInit {
   dialog = inject(MatDialog);
   users = inject(UsersService);
+  snackBar = inject(MatSnackBar);
+
   currentUser = getAuth().currentUser?.uid;
+
   displayedColumns: string[] = ['email', 'displayName', 'phone', 'actions'];
   dataSource: User[] = [];
 
@@ -51,8 +55,17 @@ export class UsersComponent implements OnInit {
         width: '70%',
       })
       .afterClosed()
-      .subscribe((res) => {
-        this.getAllUsers();
+      .subscribe({
+        next: (res) => {
+          this.getAllUsers();
+          this.openSnackBar(
+            'user has been created successfully',
+            'success-snackbar'
+          );
+        },
+        error: (error) => {
+          this.openSnackBar(error.message, 'error-snackbar');
+        },
       });
   }
 
@@ -63,8 +76,17 @@ export class UsersComponent implements OnInit {
         width: '70%',
       })
       .afterClosed()
-      .subscribe(() => {
-        this.getAllUsers();
+      .subscribe({
+        next: () => {
+          this.openSnackBar(
+            'user has been updated successfully',
+            'success-snackbar'
+          );
+          this.getAllUsers();
+        },
+        error: (error) => {
+          this.openSnackBar(error.message, 'error-snackbar');
+        },
       });
   }
   deleteUser(uid: UidIdentifier) {
@@ -72,13 +94,26 @@ export class UsersComponent implements OnInit {
     this.users.deleteUser(uid).subscribe({
       next: (res) => {
         this.loader = { id: uid, loading: false };
+        this.openSnackBar(
+          'user has been deleted successfully',
+          'success-snackbar'
+        );
       },
-      error: (res) => (this.loader = { id: uid, loading: true }),
+      error: (error: any) => {
+        this.loader = { id: uid, loading: true };
+        this.openSnackBar(error?.message, 'error-snackbar');
+      },
     });
     this.users.getUsers().subscribe((res) => {
       this.dataSource = res.users.filter(
         (user: ProfileUser) => user.uid != this.currentUser
       );
+    });
+  }
+  openSnackBar(data: string, className: string) {
+    this.snackBar.open(data, 'Close', {
+      duration: 20000,
+      panelClass: className,
     });
   }
 }

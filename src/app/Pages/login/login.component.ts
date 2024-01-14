@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.openSnackBar(
           ` Welcome  ${this.auth.auth.currentUser?.displayName}`,
-          'snackbar-success'
+          'success-snackbar'
         );
         this.router.navigateByUrl('/dashboard');
       },
