@@ -1,27 +1,53 @@
-# UserManager
+Angular User Management App
+This repository contains an Angular application for user management. The application includes both a client-side Angular app and a server-side Express app. User credentials are managed using Firebase Admin on the server side and Firebase + AngularFire on the client side.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+Getting Started
+Server
+Navigate to the server directory:
 
-## Development server
+bash
+cd server/
+Install the required dependencies:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+bash
+npm install
+Start the Express server:
 
-## Code scaffolding
+bash
+npm start
+The server will be running on http://localhost:3000.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Angular App
+Install the Angular CLI globally (if not already installed):
 
-## Build
+bash
+npm install -g @angular/cli
+Navigate to the root directory:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+bash
+cd <project-root>
+Install the required dependencies:
 
-## Running unit tests
+bash
+npm install
+Start the Angular app:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+bash
+ng serve
+The Angular app will be running on http://localhost:4200.
 
-## Running end-to-end tests
+Features
+User CRUD Operations: The Angular app allows you to perform CRUD operations on user data, integrating with Firebase and AngularFire.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Server-Side User Management: The Express server in the /server directory uses Firebase Admin SDK to manage user credentials on the server side.
 
-## Further help
+Firebase Configuration
+Make sure to configure your Firebase project credentials in the following files:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+/server/serviceAccountKey.json: Firebase Admin SDK service account key.
+/src/environments/environment.ts and /src/environments/environment.prod.ts: Firebase client-side configuration.
+Contributing
+Feel free to contribute to the development of this project. If you encounter any issues or have suggestions, please open an issue.
+
+License
+This project is licensed under the MIT License.
