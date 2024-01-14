@@ -64,7 +64,15 @@
           >
         </mat-error>
       </mat-form-field>
-      <app-custom-btn title="Register" [loading]="loading"></app-custom-btn>
+      <app-custom-btn
+        type="submit"
+        title="Register"
+        [loading]="loading"
+      ></app-custom-btn>
+      <div>
+        already have an account?
+        <a [routerLink]="'/login'">Login here</a>
+      </div>
     </form>
   </div>
 </div>

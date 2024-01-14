@@ -68,7 +68,6 @@ export class CreateUpdateUserComponent implements OnInit {
       password: ['', Validators.required],
     });
     if (this.dialogData?.user) {
-      console.log('user', this.dialogData.user);
       this.createOrUpdateForm.setValue(
         {
           displayName: this.dialogData.user.displayName ?? '',

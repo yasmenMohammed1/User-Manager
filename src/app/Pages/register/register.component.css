@@ -5,17 +5,3 @@
 form {
   text-align: center;
 }
-
-.snackbar-error .mdc-snackbar__surface {
-  background-color: red !important;
-}
-.snackbar-error .mdc-snackbar__label {
-  color: white !important;
-}
-
-.snackbar-success .mdc-snackbar__surface {
-  background-color: var(--color-primary) !important;
-}
-.snackbar-success .mdc-snackbar__label {
-  color: white !important;
-}/*# sourceMappingURL=register.component.css.map */

@@ -5,13 +5,14 @@
 >
   <!-- nav links-->
   <span> People</span>
-  {{ name }}
-  <app-custom-btn
-    color="primary"
-    title="Sign Out"
-    [loading]="loading"
-    (click)="signOut()"
-  ></app-custom-btn>
+  <div>
+    <app-custom-btn
+      color="primary"
+      title="Sign Out"
+      [loading]="loading"
+      (click)="signOut()"
+    ></app-custom-btn>
+  </div>
 </mat-toolbar>
 <mat-sidenav-container autosize>
   <mat-sidenav
@@ -27,7 +28,7 @@
         </span>
       </a>
 
-      <a mat-list-item>
+      <a mat-list-item routerLinkActive="active" routerLink="/profile">
         <span class="entry">
           <mat-icon mat-list-icon> people </mat-icon>
           <span *ngIf="!isCollapsed">Users</span>

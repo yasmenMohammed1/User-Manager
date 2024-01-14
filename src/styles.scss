@@ -53,3 +53,22 @@ body {
   margin: auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.success-snackbar {
+  color: rgb(8, 8, 94);
+  --mdc-snackbar-container-color: rgb(8, 8, 94);
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}
+
+.error-snackbar {
+  max-width: max-content !important;
+  color: rgb(197, 77, 77);
+  --mdc-snackbar-container-color: rgba(199, 73, 73, 0.867);
+  border-color: #d43746;
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}

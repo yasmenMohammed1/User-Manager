@@ -49,11 +49,8 @@ export class UpdateProfileComponent {
       } as ProfileUser);
       this.user.currentUserProfile$.subscribe((user) => {
         this.userData = user;
-
-        console.log('userData', user);
       });
     });
-    console.log('user');
   }
   get email() {
     return this.updateProfileForm.get('email');

@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { CustomBtnComponent } from '../../Components/custom-btn/custom-btn.component';
 import { AuthService } from '../../services/auth.service';
 import { switchMap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -28,6 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     CommonModule,
     CustomBtnComponent,
+    RouterModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
     });
   }
   submit() {
+    console.log('this.', this.signUpForm.errors);
     const { name, email, password, phone } = this.signUpForm.value;
     if (!this.signUpForm.valid || !name || !password || !email) {
       return;
@@ -76,9 +78,12 @@ export class RegisterComponent implements OnInit {
         })
       )
       .subscribe({
-        next: () => {
+        next: (user: any) => {
           this.loading = false;
-          this.openSnackBar('successfully created', 'snackbar-success');
+          this.openSnackBar(
+            'Welcome' + ' ' + user?.displayName,
+            'snackbar-success'
+          );
           this.router.navigateByUrl('/login');
         },
         error: (error: any) => {

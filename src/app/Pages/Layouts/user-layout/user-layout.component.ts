@@ -75,7 +75,7 @@ export class UserLayoutComponent {
     this.loading = true;
     this.auth.logout().subscribe(() => {
       this.router.navigate(['/login']);
+      this.loading = false;
     });
-    this.loading = false;
   }
 }

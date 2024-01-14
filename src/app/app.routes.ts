@@ -25,14 +25,18 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
 
-      { path: 'dashboard', component: UsersComponent },
+      {
+        path: 'dashboard',
+        component: UsersComponent,
+        ...canActivate(redirectUnauthorizedToLogin),
+      },
       {
         title: 'Profile',
         path: 'profile',
         component: UserProfileComponent,
+        ...canActivate(redirectUnauthorizedToLogin),
       },
     ],
-    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: '',
