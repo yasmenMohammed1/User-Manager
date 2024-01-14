@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
     });
   }
   submit() {
-    console.log('this.', this.signUpForm.errors);
     const { name, email, password, phone } = this.signUpForm.value;
     if (!this.signUpForm.valid || !name || !password || !email) {
       return;
