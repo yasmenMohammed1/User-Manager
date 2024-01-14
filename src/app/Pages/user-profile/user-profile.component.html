@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+      <img width="80%" height="80%" src="/assets/avatar.png" />
+    </div>
+    <mat-card-title>
+      {{ userData?.displayName?.[0]?.toUpperCase()  }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <span matListItemTitle>Name</span>
+        <span matListItemLine>{{ userData?.displayName }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle>Email</span>
+        <span matListItemLine>{{ userData?.email }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle>Phone</span>
+        <span matListItemLine>{{ userData?.phone }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="redirectToDashboard()">Back</button>
+  </mat-card-actions>
+</mat-card>

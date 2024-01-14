@@ -11,4 +11,5 @@ export class CustomBtnComponent {
   @Input() loading = false;
   @Input() title = '';
   @Input() color = 'basic';
+  @Input() type = 'button';
 }

@@ -1,7 +1,8 @@
 <button
   ngClass="{loading}"
-  mat-stroked-button
+  mat-flat-button
   [class.spinner]="loading"
+  [type]="type"
   [color]="color"
   [disabled]="loading"
 >

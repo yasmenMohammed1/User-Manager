@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -14,12 +13,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { subscribe } from 'diagnostics_channel';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { CustomBtnComponent } from '../custom-btn/custom-btn.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-update-user',
   standalone: true,
@@ -41,12 +42,19 @@ export class CreateUpdateUserComponent implements OnInit {
   snackBar = inject(MatSnackBar);
   formBuilder = inject(FormBuilder);
   dialogData = inject(MAT_DIALOG_DATA);
+  user = inject(UserService);
+  auth = inject(AuthService);
+  router = inject(Router);
+
+  showAlert = false;
+  close = false;
   createOrUpdateForm!: FormGroup;
 
   loading = false;
+  constructor(public dialogRef: MatDialogRef<CreateUpdateUserComponent>) {}
   ngOnInit() {
     this.createOrUpdateForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.minLength(7)]],
+      displayName: [null, [Validators.required, Validators.minLength(7)]],
       email: [null, [Validators.required, Validators.email]],
       phone: [
         null,
@@ -59,10 +67,11 @@ export class CreateUpdateUserComponent implements OnInit {
       ],
       password: ['', Validators.required],
     });
-    if (this.dialogData.user) {
+    if (this.dialogData?.user) {
+      console.log('user', this.dialogData.user);
       this.createOrUpdateForm.setValue(
         {
-          name: this.dialogData.user.displayName,
+          displayName: this.dialogData.user.displayName ?? '',
           phone: this.dialogData.user.customClaims.phone ?? '',
           password: this.dialogData.user.password ?? '',
           email: this.dialogData.user.email ?? '',
@@ -76,7 +85,7 @@ export class CreateUpdateUserComponent implements OnInit {
     return this.createOrUpdateForm.get('email');
   }
   get name() {
-    return this.createOrUpdateForm.get('name');
+    return this.createOrUpdateForm.get('displayName');
   }
   get phone() {
     return this.createOrUpdateForm.get('phone');
@@ -86,37 +95,39 @@ export class CreateUpdateUserComponent implements OnInit {
   }
 
   submit() {
-    const { name, email, password, phone } = this.createOrUpdateForm.value;
-    if (!this.createOrUpdateForm.valid || !name || !password || !email) {
+    const { displayName, email, password, phone } =
+      this.createOrUpdateForm.value;
+    if (!this.createOrUpdateForm.valid || !displayName || !password || !email) {
       return;
     }
     this.loading = true;
-    if (this.dialogData.user) {
+    if (!this.dialogData?.user) {
+      this.users.createUser({ ...this.createOrUpdateForm.value }).subscribe({
+        next: () => {
+          this.openSnackBar('successfully created', 'snackbar-success');
+          this.dialogRef.close();
+        },
+        error: (error: any) => {
+          this.openSnackBar(error?.message, 'snackbar-error');
+        },
+      });
+      this.loading = false;
+    } else {
+      this.loading = true;
       this.users
         .updateUser(this.dialogData.user.uid, {
           ...this.createOrUpdateForm.value,
         })
         .subscribe({
           next: () => {
-            this.loading = false;
             this.openSnackBar('successfully updated', 'snackbar-success');
+            this.dialogRef.close();
           },
           error: (error: any) => {
             this.openSnackBar(error?.message, 'snackbar-error');
-            this.loading = false;
           },
         });
-    } else {
-      this.users.createUser({ ...this.createOrUpdateForm.value }).subscribe({
-        next: () => {
-          this.loading = false;
-          this.openSnackBar('successfully created', 'snackbar-success');
-        },
-        error: (error: any) => {
-          this.openSnackBar(error?.message, 'snackbar-error');
-          this.loading = false;
-        },
-      });
+      this.loading = false;
     }
   }
 

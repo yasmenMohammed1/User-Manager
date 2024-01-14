@@ -1,6 +1,6 @@
 import { getAuth } from "firebase-admin/auth";
 
-export const getAllUsers = function (req, res, next) {
+export const getAllUsers = function (req, res) {
   getAuth()
     .listUsers(1000)
     .then((listUsersResult) => {
@@ -12,12 +12,19 @@ export const getAllUsers = function (req, res, next) {
 };
 
 export const createUser = function (req, res, next) {
+  console.log("req.body", req.body);
   getAuth()
-    .createUser({ ...req.body })
+    .createUser({ displayName: req.body.name, ...req.body })
     .then((userRecord) => {
-      res.send(userRecord);
+      console.log("Successfully created new user:", userRecord);
+      getAuth()
+        .setCustomUserClaims(userRecord.uid, { phone: req.body.phone })
+        .then(() => {
+          res.send(userRecord);
+        });
     })
     .catch((error) => {
+      console.log("Error creating new user:", error);
       next(error);
     });
 };
@@ -27,7 +34,7 @@ export const updateUser = function (req, res, next) {
     ...req.body,
   });
   getAuth()
-    .setCustomUserClaims(req.params.id, { phone: req.body.phoneNumber })
+    .setCustomUserClaims(req.params.id, { phone: req.body.phone })
     .then((userRecord) => {
       res.json(userRecord);
     })

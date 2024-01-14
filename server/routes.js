@@ -7,9 +7,6 @@ import {
 import * as express from "express";
 export const routes = function () {
   var router = express.Router();
-  router.get("/user", function (req, res) {
-    res.json({ nour: "noura" });
-  });
 
   router.post("/user", createUser);
 

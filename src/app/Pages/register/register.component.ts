@@ -70,8 +70,8 @@ export class RegisterComponent implements OnInit {
           return this.usersService.addUser({
             uid: user.uid,
             email,
+            phone,
             displayName: name,
-            phone: phone,
           });
         })
       )
@@ -79,8 +79,7 @@ export class RegisterComponent implements OnInit {
         next: () => {
           this.loading = false;
           this.openSnackBar('successfully created', 'snackbar-success');
-
-          this.router.navigate(['/login']);
+          this.router.navigateByUrl('/login');
         },
         error: (error: any) => {
           this.openSnackBar(error?.message, 'snackbar-error');

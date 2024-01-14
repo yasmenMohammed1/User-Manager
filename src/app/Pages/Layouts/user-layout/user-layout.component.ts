@@ -6,7 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLinkActive,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomBtnComponent } from '../../../Components/custom-btn/custom-btn.component';
@@ -23,7 +28,9 @@ import { CustomBtnComponent } from '../../../Components/custom-btn/custom-btn.co
     NgIf,
     NgClass,
     RouterOutlet,
+    RouterLinkActive,
     CustomBtnComponent,
+    RouterModule,
   ],
   templateUrl: './user-layout.component.html',
   styleUrl: './user-layout.component.scss',

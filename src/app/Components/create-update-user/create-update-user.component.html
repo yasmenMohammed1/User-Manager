@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ dialogData.uid ? "Edit User" : "Create User" }}</h1>
+<h1 mat-dialog-title>{{ dialogData?.uid ? "Edit User" : "Create User" }}</h1>
 <div mat-dialog-content>
   <div class="example-container">
     <div class="form-container">
@@ -12,7 +12,7 @@
           <input
             placeholder="please enter your name"
             matInput
-            formControlName="name"
+            formControlName="displayName"
             required
           />
           <mat-error *ngIf="name?.touched && name?.invalid">
@@ -79,13 +79,15 @@
           <app-custom-btn
             color="primary"
             title="Register"
+            type="submit"
             [loading]="loading"
           ></app-custom-btn>
           <app-custom-btn
             color="basic"
             mat-button
             title="close"
-            [mat-dialog-close]="true"
+            type="button"
+            [mat-dialog-close]="close"
             cdkFocusInitial
           >
           </app-custom-btn>

@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 import {
   Auth,
   GoogleAuthProvider,
-  User,
   UserCredential,
   authState,
   createUserWithEmailAndPassword,

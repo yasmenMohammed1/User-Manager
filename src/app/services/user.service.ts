@@ -10,13 +10,6 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
-import {
-  PhoneAuthCredential,
-  User,
-  UserCredential,
-  updateProfile,
-} from 'firebase/auth';
-import { updatePhoneNumber } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +46,6 @@ export class UserService {
         },
       });
 
-    // updatePhoneNumber(this.authService.auth.currentUser as any,PhoneAuthCredential);
     return from(setDoc(ref, user));
   }
 

@@ -9,6 +9,7 @@ import {
 } from '@angular/fire/auth-guard';
 import { UserLayoutComponent } from './Pages/Layouts/user-layout/user-layout.component';
 import { UsersComponent } from './Pages/users/users.component';
+import { UserProfileComponent } from './Pages/user-profile/user-profile.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['/dashboard']);
@@ -23,7 +24,13 @@ export const routes: Routes = [
         redirectTo: '/dashboard',
         pathMatch: 'full',
       },
+
       { path: 'dashboard', component: UsersComponent },
+      {
+        title: 'Profile',
+        path: 'profile',
+        component: UserProfileComponent,
+      },
     ],
     ...canActivate(redirectUnauthorizedToLogin),
   },
