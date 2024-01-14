@@ -1,5 +1,5 @@
-Angular User Management
-# Project Title
+
+# Angular User Management
 
 This repository contains an Angular application for user management. The application includes both a client-side Angular app and a server-side Express app. User credentials are managed using Firebase Admin on the server side and Firebase + AngularFire on the client side.
 
